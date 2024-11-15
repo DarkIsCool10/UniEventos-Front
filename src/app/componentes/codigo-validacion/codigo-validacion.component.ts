@@ -33,6 +33,7 @@ export class CodigoValidacionComponent {
     return this.validatorForm.get('code') as FormArray;
   }
   
+  //El error esta en este componente? no señor, el componente de recuperacion de contrasenia
 
   private crearFormulario() {
 

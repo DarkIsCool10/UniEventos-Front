@@ -167,3 +167,7 @@
     border-bottom-right-radius: 10px !important;
   
    }
+
+   .inp{
+    flex-direction: row;
+   }

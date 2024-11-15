@@ -1,6 +1,6 @@
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray, AbstractControlOptions } from '@angular/forms';
 import { CambiarPasswordDTO } from '../../dto/cuenta/cambiar-password-dto';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-cambio-contrasena',
   standalone: true,
-  imports: [ FontAwesomeModule, RouterModule, ReactiveFormsModule ],
+  imports: [ FontAwesomeModule, RouterModule, ReactiveFormsModule, CommonModule ],
   templateUrl: './cambio-contrasena.component.html',
   styleUrl: './cambio-contrasena.component.css'
 })
@@ -39,7 +39,7 @@ export class CambioContrasenaComponent {
     if (this.step > 1) this.step--;
   }
 
-  get codeArray() {
+  get code(): FormArray {
     return this.validatorFormContrase.get('code') as FormArray;
   }
 
@@ -52,8 +52,13 @@ export class CambioContrasenaComponent {
     );
     this.validatorFormContrase = this.formBuilder.group(
       {
-        code: this.formBuilder.array(
-          Array(5).fill('').map(() => this.formBuilder.control('', [Validators.required]))
+        code: this.formBuilder.array([
+          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.control('', [Validators.required]),
+          this.formBuilder.control('', [Validators.required])
+        ]
         ),
         password: ['', [Validators.required, Validators.maxLength(10), Validators.minLength(7)]],
         confirmaPassword: ['', [Validators.required]]
@@ -92,9 +97,9 @@ export class CambioContrasenaComponent {
     });
   }
 
-  public CodigoContra() {
+  public CodigoContra() { 
     
-    const codigoCompleto = this.codeArray.controls.map(control => control.value).join(''); 
+    const codigoCompleto = this.code.controls.map(control => control.value).join(''); 
 
     const cambiarPasswordDTO: CambiarPasswordDTO = { 
       codigoVerificacion: codigoCompleto,

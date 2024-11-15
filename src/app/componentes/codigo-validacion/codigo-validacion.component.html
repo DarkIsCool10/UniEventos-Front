@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Verificar Código</h3>
     <form [formGroup]="validatorForm" (ngSubmit)="validacionCodigo()">
-      <div class="inp" formArrayName="code">
+      <div formArrayName="code">
         @for (control of codeArray.controls; track $index){
         <input type="text" id="inp-verifi" maxlength="1" [formControlName]="$index"/>
         }

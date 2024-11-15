@@ -3,6 +3,15 @@
   padding: 5%;
 }
   
+.containerInputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;    /* Alinea verticalmente */
+  gap: 8px;               /* Espaciado entre los inputs */
+  margin-bottom: 20px;    /* Espaciado inferior */
+}
+
 .container {
   width: 50%;
   height: 100%;

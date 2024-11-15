@@ -5,7 +5,9 @@ import { InformacionEventoDTO } from '../../dto/evento/informacion-evento-dto';
 import { PublicoService } from '../../servicios/publico.service';
 import { RouterModule, ActivatedRoute  } from '@angular/router';
 import { Localidad } from '../../dto/evento/localidad';
-
+import { ClienteService } from '../../servicios/cliente.service';
+import { DetalleCarritoDTO } from '../../dto/carrito/detalle-carrito-dto';
+import { TokenService } from '../../servicios/token.service';
 
 @Component({
   selector: 'app-evento-unidad',
@@ -22,7 +24,9 @@ export class EventoUnidadComponent {
   cantidadSeleccionada: number;
   localidad!: Localidad;
 
-  constructor(private publicoService: PublicoService, private route: ActivatedRoute) {
+  constructor(private publicoService: PublicoService, private route: ActivatedRoute, private clienteService: ClienteService,
+              private tokenServe: TokenService
+  ) {
     this.obtenerEvento();
     this.cantidadSeleccionada = 1;
     this.maxCantidad = 1;
@@ -53,7 +57,7 @@ export class EventoUnidadComponent {
         console.log("maxCapacidad", maxCapacidad)
         console.log("vendidas", vendidas)
 
-        // Reiniciar la cantidad seleccionada a 1 si el valor anterior es mayor que el nuevo máximo
+        // Reiniciar la cantidad seleccionada a 0 si el valor anterior es mayor que el nuevo máximo
         this.cantidadSeleccionada = Math.min(this.cantidadSeleccionada, this.maxCantidad);
       } else {
         // Resetear el máximo y la cantidad si no hay localidad seleccionada
@@ -82,8 +86,22 @@ export class EventoUnidadComponent {
   }
 
   agregarAlCarrito() {
-    console.log('Entradas seleccionadas:', this.locations);
-    // Aquí podrías llamar un servicio que agregue las entradas al carrito o procesarlas
+
+    const idUsuario = this.tokenServe.getAllTokenData().id;
+    const detalleCarritoDTO: DetalleCarritoDTO = { 
+      cantidad: this.cantidadSeleccionada,
+      nombreLocalidad: this.localidad.nombre,
+      idEvento: this.eventoId,
+      fechaAgregacion: new Date
+    };
+    this.clienteService.agregarItemsAlCarrito(idUsuario, detalleCarritoDTO).subscribe({
+      next: (data) => {
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    })
+  
   }
 
 }

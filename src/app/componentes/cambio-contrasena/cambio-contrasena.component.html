@@ -20,10 +20,10 @@
     @if (step === 2) {
       <div class="container">
         <h3>Verificar Código</h3>
-        <div class="inp">
-          @for (control of codeArray.controls; track $index){
-            <input type="text" id="inp-verifi" maxlength="1" [formControlName]="$index"/>
-          }
+        <div class="containerInputs" formArrayName="code">
+          <div class="inp" *ngFor="let item of code.controls; let i = index">
+            <input type="text" maxlength="1" id="inp-verifi" [formControlName]="i" />
+          </div>
         </div>
         <div class="containerBoton">
           <a class="buttonRegistro" (click)="nextStep()">Siguiente</a>
