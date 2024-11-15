@@ -1,10 +1,20 @@
-<header>
+<header *ngIf="rol !== 'ADMINISTRADOR'">
     <app-navbar></app-navbar>
     <app-search-bar></app-search-bar>
-</header>
-<div>
+  </header>
+  
+  <!-- Contenedor del administrador -->
+  <div *ngIf="rol === 'ADMINISTRADOR'">
+    <app-navbar-admin></app-navbar-admin>
     <router-outlet></router-outlet>
-</div>
-<footer>
+  </div>
+  
+  <!-- Contenedor del cliente -->
+  <div *ngIf="rol !== 'ADMINISTRADOR'">
+    <router-outlet></router-outlet>
+  </div>
+  
+  <footer *ngIf="rol !== 'ADMINISTRADOR'">
     <app-footer></app-footer>
-</footer>
+  </footer>
+  

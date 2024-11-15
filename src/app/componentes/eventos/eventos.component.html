@@ -26,7 +26,7 @@
 </div>
 <div class="card-container">
   @for (evento of eventos; track $index) {
-  <div class="event-card" routerLink="/evento">
+  <div class="event-card" [routerLink]="['/evento', evento.id]">
     <img src="concierto.jpg" alt="Imagen del evento" class="event-image">
     <div class="event-content">
       <h3 class="event-title">{{evento.nombre}}</h3>

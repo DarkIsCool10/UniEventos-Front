@@ -101,7 +101,6 @@ export class CambioContrasenaComponent {
       passwordNueva: this.validatorFormContrase.get('password')?.value || '',
     };
 
-    console.log(cambiarPasswordDTO.codigoVerificacion, "codigo");
 
     this.authService.cambiarPassword(cambiarPasswordDTO).subscribe({
       next: (data) => {

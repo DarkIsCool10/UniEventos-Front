@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TokenService } from '../../servicios/token.service';
 
-
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -15,6 +14,7 @@ import { TokenService } from '../../servicios/token.service';
 
 export class NavbarComponent {
 
+  email: string = "";
   title = 'Broletos';
   logueado: boolean;
   mostrarMenu: boolean = false;
@@ -22,6 +22,9 @@ export class NavbarComponent {
 
   constructor(private tokenService: TokenService){
     this.logueado = this.isLogged();
+    if(this.logueado){
+      this.email = this.tokenService.getAllTokenData().email;
+    }
   }
 
   toggleMenu(){
@@ -31,6 +34,7 @@ export class NavbarComponent {
   public isLogged(){
     return this.tokenService.isLogged();
   }
+
 
   public logout() {
     this.tokenService.logout();

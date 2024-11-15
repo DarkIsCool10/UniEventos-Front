@@ -65,7 +65,6 @@ export class RegistroLoginComponent implements OnInit {
     this.authService.crearCuenta(crearCuenta).subscribe({
       next: (data) => {
         const email = this.registroForm.get('email')?.value;
-        console.log("Cohio el email" + email);
         this.authService.setEmailTemp(email);
         Swal.fire({
           title: 'Cuenta creada',

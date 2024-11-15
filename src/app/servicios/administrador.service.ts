@@ -23,9 +23,10 @@ export class AdministradorService {
 
 
 //  _______________________________ METODOS EVENTOS _________________________________________________
- public crearEvento(crearEventoDTO: CrearEventoDTO): Observable<MensajeDTO> {
-   return this.http.post<MensajeDTO>(`${this.adminURL}/crear-evento`, crearEventoDTO);
- }
+ 
+  public crearEvento(crearEventoDTO: CrearEventoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.adminURL}/crear-evento`, crearEventoDTO);
+  }
 
 
  public actualizarEvento(editarEventoDTO: EditarEventoDTO): Observable<MensajeDTO> {
@@ -80,7 +81,11 @@ public editarCupon(editarCuponDTO: EditarCuponDTO, cuponId: string): Observable<
 
 
 public obtenerInformacionCupon(id: string): Observable<MensajeDTO> {
-  return this.http.get<MensajeDTO>(`${this.adminURL}//cupon/${id}`);
+  return this.http.get<MensajeDTO>(`${this.adminURL}/cupon/${id}`);
+}
+
+public obtenerTodosLosCupones(): Observable<MensajeDTO> {
+  return this.http.get<MensajeDTO>(`${this.adminURL}/cupones`);
 }
 
 

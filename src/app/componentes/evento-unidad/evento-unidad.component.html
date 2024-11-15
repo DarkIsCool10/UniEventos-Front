@@ -1,39 +1,48 @@
 <div class="event-view">
-    <h1 class="event-title">Título del Evento</h1>
+    <h1 class="event-title">{{evento.nombre}}</h1>
     
     <div class="event-header">
-      <img src="evento.jpg" alt="Imagen del evento" class="event-image">
+      <img [src]="evento.imagenPortada" alt="Imagen del evento" class="event-image">
     </div>
     
     <p class="event-description">
-      Descripción del evento: Este evento será una increíble experiencia con...
+      {{evento.descripcion}}
     </p>
     
     <div class="event-details-panel">
       <div class="event-details">
         <h2>Detalles del Evento</h2>
-        <p><strong>Nombre:</strong> Nombre del Evento</p>
-        <p><strong>Ubicación:</strong> Lugar del Evento</p>
-        <p><strong>Fecha:</strong> Fecha del Evento</p>
-        <img src="Entradas.png" alt="Detalles del evento" class="details-image">
+        <p><strong>Nombre: </strong>{{evento.nombre}}</p>
+        <p><strong>Ubicación: </strong>{{evento.ciudad}} - {{evento.direccion}}</p>
+        <p><strong>Fecha: </strong>{{evento.fecha}}</p>
+        <img [src]="evento.imagenLocalidad" alt="Detalles del evento" class="details-image">
       </div>
+
+      <!-- PANEL PARA COMPRAR -->
       <div class="event-details">
         <h2 style="color: black;">Comprar Entradas</h2>
         <!-- Contenedor de los combobox dinámicos -->
-        <div *ngFor="let location of locations; let i = index" class="combobox-group">
+        <div class="combobox-group">
           <h3>Escoja la localidad que desea</h3>
-          <div class="dropdown-container">
-            <select class="custom-combobox" [(ngModel)]="location.selectedLocalidad" aria-label="Selecciona la localidad">
-              <option disabled selected>Localidad</option>
-              <option *ngFor="let loc of localidades">{{ loc.nombre }} - {{ loc.precio | currency }}</option>
-            </select>
-          </div>
+            <div class="dropdown-container">
+              <select class="custom-combobox" aria-label="Selecciona la localidad" [(ngModel)]="localidad" (ngModelChange)="localidadSeleccionada()">
+                <option disabled selected>Localidad</option>
+                @for (localidad of evento.localidades; track $index){
+                  <option>{{ localidad.nombre }} - {{ localidad.precio| currency }}</option>
+                }
+              </select>
+            </div>
           <h3>Selecciona la cantidad de boletos</h3>
           <div class="dropdown-container">
-            <select class="custom-combobox" [(ngModel)]="location.cantidad" aria-label="Selecciona la cantidad">
-              <option disabled selected>Cantidad de boletos</option>
-              <option *ngFor="let num of cantidades">{{ num }}</option>
-            </select>
+            <input
+            type="number"
+            class="custom-combobox"
+            aria-label="Selecciona la cantidad"
+            [(ngModel)]="cantidadSeleccionada"
+            [min]="1"
+            [max]="maxCantidad"
+            (input)="validarCantidad()"
+          />
           </div>
         </div>
         <!-- Botones de acción -->

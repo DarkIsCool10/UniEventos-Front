@@ -29,9 +29,9 @@ export class CodigoValidacionComponent {
     this.emailGuardado = this.authService.getEmailTemp(); // Obtiene el correo almacenado
   }
 
-    get codeArray() {
-      return this.validatorForm.get('code') as FormArray;
-    }
+  get codeArray() {
+    return this.validatorForm.get('code') as FormArray;
+  }
   
 
   private crearFormulario() {

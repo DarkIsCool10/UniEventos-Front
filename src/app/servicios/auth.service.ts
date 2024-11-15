@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { TokenService } from '../servicios/token.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MensajeDTO } from '../dto/autenticacion/mensaje-dto';
@@ -13,11 +15,11 @@ import { CodigoContraseniaDTO } from '../dto/cuenta/codigo-contrasenia-dto';
 })
 export class AuthService {
 
-  private authURL = "http://localhost:8081/api/auth ";
+  private authURL = "http://localhost:8081/api/auth";
 
   private emailTemp: string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private tokenService: TokenService, private router: Router) { 
     this.emailTemp = this.getEmailTemp();
   }
 
@@ -29,6 +31,16 @@ export class AuthService {
   getEmailTemp() {
     return this.emailTemp;
   }
+  
+
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.tokenService.isLogged()) {
+      this.router.navigate([""]);
+      return false;
+    }
+    return true;
+  }
+ 
   //_______________________________ METODOS CUENTA _____________________________________________
 
    public crearCuenta(cuentaDTO: CrearCuentaDTO): Observable<MensajeDTO> {
@@ -54,3 +66,8 @@ export class AuthService {
    }
    
 }
+
+  export const LoginGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
+    return inject(AuthService).canActivate(next, state);
+  }
+ 

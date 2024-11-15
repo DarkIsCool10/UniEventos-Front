@@ -22,6 +22,8 @@ export class TokenService {
     return sessionStorage.getItem(TOKEN_KEY);
   }
 
+  
+
   public isLogged(): boolean {
     if (this.getToken()) {
       return true;
@@ -31,10 +33,13 @@ export class TokenService {
 
   public login(token: string) {
     this.setToken(token);
-    this.router.navigate(["/"]).then(() => {
+    const rol = this.getRol();
+    let destino = rol == "ADMINISTRADOR" ? "/home-admin" : "/home-cliente";
+    this.router.navigate([destino]).then(() => {
       window.location.reload();
     });
- }
+   }
+   
 
  public logout() {
   window.sessionStorage.clear();
