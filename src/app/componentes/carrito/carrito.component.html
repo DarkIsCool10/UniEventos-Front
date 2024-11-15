@@ -29,100 +29,45 @@
     <h2>Eventos seleccionados</h2>
     <div class="cart-container-interno">
         <div class="event-container1-wrapper">
-            <div class="event-container1">
-                <div class="event-image">
-                    <img src="Entradas.png" alt="Concierto" />
-                </div>
-                <div class="event-info1">
-                    <h3>Título del Concierto</h3>
-                    <p>Ubicación del evento</p>
-                    <p>Fecha: 01/01/2024</p>
-                </div>
-                <div class="event-buttoms">
-                    <div class="centrado">
-                        <i class="fas fa-trash-alt" id="basura"></i>
+            @for (item of items; track $index){
+                <div class="event-container1">
+                    <div class="event-image">
+                        <img src="Entradas.png" alt="Concierto" />
                     </div>
-                    <div class="centrado">
-                        <button class="modify-button">Modificar entradas</button>
-                    </div>
-                </div>
-            </div>
-            <div class="event-container1">
-                <div class="event-image">
-                    <img src="Entradas.png" alt="Concierto" />
-                </div>
-                <div class="event-info1">
-                    <h3>Título del Concierto</h3>
-                    <p>Ubicación del evento</p>
-                    <p>Fecha: 01/01/2024</p>
-                </div>
-                <div class="event-buttoms">
-                    <div class="centrado">
-                        <i class="fas fa-trash-alt" id="basura"></i>
-                    </div>
-                    <div class="centrado">
-                        <button class="modify-button">Modificar entradas</button>
+                    
+                    <div class="event-info1">
+                        <div class="info-row">
+                            <h3>{{item.nombre}}</h3>
+                            <i class="fas fa-trash-alt" id="basura" (click)="eliminarItem(item.detalleCarritoDTO.nombreLocalidad)"></i>
+                        </div>
+                        <div class="info-row">
+                            <p>Dirección: {{item.direccion}}</p>
+                            <p>Fecha: {{item.fecha}}</p>
+                        </div>
+                        <div class="info-row">
+                            <p>Localidad: {{item.detalleCarritoDTO.nombreLocalidad}}</p>
+                            <p>Cantidad: {{item.detalleCarritoDTO.cantidad}}</p>
+                            <button class="modify-button">Modificar entradas</button>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-            <div class="event-container1">
-                <div class="event-image">
-                    <img src="Entradas.png" alt="Concierto" />
-                </div>
-                <div class="event-info1">
-                    <h3>Título del Concierto</h3>
-                    <p>Ubicación del evento</p>
-                    <p>Fecha: 01/01/2024</p>
-                </div>
-                <div class="event-buttoms">
-                    <div class="centrado">
-                        <i class="fas fa-trash-alt" id="basura"></i>
-                    </div>
-                    <div class="centrado">
-                        <button class="modify-button">Modificar entradas</button>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
         <div class="event-container2">
             <h3>Resumen de carrito</h3>
             <div class="event-info2">
-                <div class="event-item">
-                    <div class="x">
-                        <p>Ubicación del evento</p>
-                        <i class="fas fa-trash-alt" id="basura"></i>
+                @for (item of items; track $index){
+                    <div class="event-item">
+                        <div class="x">
+                            <p>{{item.nombre}}</p>
+                            <i class="fas fa-trash-alt" id="basura" (click)="eliminarItem(item.detalleCarritoDTO.nombreLocalidad)"></i>
+                        </div>
+                        <div class="x">
+                            <p>Fecha: {{item.fecha}}</p>
+                        </div>
                     </div>
-                    <div class="x">
-                        <p>Fecha: 01/01/2024</p>
-                    </div>
-                </div>
-                <div class="event-item">
-                    <div class="x">
-                        <p>Ubicación del evento</p>
-                        <i class="fas fa-trash-alt" id="basura"></i>
-                    </div>
-                    <div class="x">
-                        <p>Fecha: 01/01/2024</p>
-                    </div>
-                </div>
-                <div class="event-item">
-                    <div class="x">
-                        <p>Ubicación del evento</p>
-                        <i class="fas fa-trash-alt" id="basura"></i>
-                    </div>
-                    <div class="x">
-                        <p>Fecha: 01/01/2024</p>
-                    </div>                    
-                </div>
-                <div class="event-item">
-                    <div class="x">
-                        <p>Ubicación del evento</p>
-                        <i class="fas fa-trash-alt" id="basura"></i>
-                    </div>
-                    <div class="x">
-                        <p>Fecha: 01/01/2024</p>
-                    </div>
-                </div>
+                }
             </div>
             <button class="button">
                 Finalizar Compra

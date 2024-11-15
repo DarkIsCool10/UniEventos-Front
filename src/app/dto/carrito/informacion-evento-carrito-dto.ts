@@ -1,0 +1,10 @@
+import { DetalleCarritoDTO } from "./detalle-carrito-dto";
+
+export interface InformacionEventoCarritoDTO {
+
+    detalleCarritoDTO: DetalleCarritoDTO,
+    imagenPortada: string,
+    nombre: string,
+    direccion: string,
+    fecha: Date
+}

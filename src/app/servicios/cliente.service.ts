@@ -46,7 +46,7 @@ export class ClienteService {
 
    //_______________________________ METODOS CARRITO _____________________________________________
 
-   public agregarItemsAlCarrito(idUsuario: string, itemsCarritoDTO: DetalleCarritoDTO): Observable<MensajeDTO> {
+   public agregarItemsAlCarrito(idUsuario: string, itemsCarritoDTO: DetalleCarritoDTO[]): Observable<MensajeDTO> {
     return this.http.put<MensajeDTO>(`${this.clienteURL}/agregar-items-carrito/${idUsuario}`, itemsCarritoDTO);
   }
 
@@ -58,5 +58,20 @@ export class ClienteService {
     return this.http.delete<MensajeDTO>(`${this.clienteURL}/eliminar-item-carrito/${idUsuario}/${nombreLocalidad}`);
   }
 
+  public vaciarCarrito(idUsuario: string): Observable<MensajeDTO> {
+    return this.http.delete<MensajeDTO>(`${this.clienteURL}//vaciar-carrito/${idUsuario}`);
+  }
+
+  public listarProductosEnCarrito(idUsuario: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.clienteURL}/listar-productos-carrito/${idUsuario}`);
+  }
+
+  public calcularTotalCarrito(idUsuario: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.clienteURL}/total-carrito/${idUsuario}`);
+  }
+
+  public validarDisponibilidadEntradas(idUsuario: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.clienteURL}/validar-disponibilidad/${idUsuario}`);
+  }
 
 }
