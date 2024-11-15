@@ -93,7 +93,6 @@ export class RegistroLoginComponent implements OnInit {
   public login() {
     const loginDTO = this.loginForm.value as LoginDTO;
 
-
     this.authService.iniciarSesion(loginDTO).subscribe({
       next: (data) => {
         this.tokenService.login(data.respuesta.token);

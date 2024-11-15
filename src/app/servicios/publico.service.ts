@@ -19,13 +19,16 @@ export class PublicoService {
   //_______________________________ METODOS EVENTO _____________________________________________
 
 
- public filtrarEventos(filtroEventoDTO: FiltroEventoDTO): Observable<MensajeDTO> {
-   return this.http.post<MensajeDTO>(`${this.publicoURL}/filtrar-eventos`, filtroEventoDTO);
- }
+  public filtrarEventos(filtroEventoDTO: FiltroEventoDTO): Observable<MensajeDTO> {
+    return this.http.post<MensajeDTO>(`${this.publicoURL}/filtrar-eventos`, filtroEventoDTO);
+  }
 
+  public listarEventos(): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-eventos`);
+  }
 
- public listarEventos(): Observable<MensajeDTO> {
-   return this.http.get<MensajeDTO>(`${this.publicoURL}/listar-eventos`);
- }
+  public obtenerInfoEvento(id: string): Observable<MensajeDTO> {
+    return this.http.get<MensajeDTO>(`${this.publicoURL}/obtener-evento/${id}`);
+  }
 
 }

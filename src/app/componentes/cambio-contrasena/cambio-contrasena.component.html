@@ -26,7 +26,7 @@
           }
         </div>
         <div class="containerBoton">
-          <button class="buttonRegistro" (click)="nextStep()">Siguiente</button>
+          <a class="buttonRegistro" (click)="nextStep()">Siguiente</a>
         </div>
       </div>
     }
@@ -52,7 +52,7 @@
           <p>Las contraseñas no coinciden</p>
         }
         <div class="containerBoton">
-          <button class="buttonRegistro" (click)="previousStep()">Atrás</button>
+          <a class="buttonRegistro" (click)="previousStep()">Atrás</a>
           <button class="buttonRegistro" [disabled]="validatorFormContrase.invalid">Confirmar</button>
         </div>
       </div>

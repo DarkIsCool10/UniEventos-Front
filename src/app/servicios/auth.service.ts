@@ -13,7 +13,7 @@ import { CodigoContraseniaDTO } from '../dto/cuenta/codigo-contrasenia-dto';
 })
 export class AuthService {
 
-  private authURL = "http://localhost:8081/api/publico";
+  private authURL = "http://localhost:8081/api/auth ";
 
   private emailTemp: string;
 

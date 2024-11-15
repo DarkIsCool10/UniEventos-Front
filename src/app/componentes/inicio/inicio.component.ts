@@ -17,12 +17,15 @@ export class InicioComponent {
 
   eventos: ItemEventoDTO[];
   logueado: boolean;
+  rol: string;
 
 
   constructor(private publicoService: PublicoService, private tokenService: TokenService) {
     this.eventos = [];
     this.logueado = this.isLogged();
     this.obtenerEventos();
+    this.rol = this.tokenService.getRol();
+    console.log(this.rol);
   }
 
   public obtenerEventos(){
