@@ -1,49 +1,59 @@
 <div class="event-list-container">
-    <div class="section-title" style="color: black">
+    <!-- Eventos Disponibles -->
+    <div class="section-title" style="color: black;">
         <h2>Eventos Disponibles</h2>
     </div>
     <div class="card-container">
-        <div class="event-card" *ngFor="let event of availableEvents | paginate: { itemsPerPage: 5, currentPage: availablePage }" routerLink="/evento/{{event.id}}">
-            <img [src]="event.image" alt="Imagen del evento" class="event-image">
+        <div class="event-card" *ngFor="let event of listaEventosDisponibles" routerLink="/info-evento-admin/{{event.id}}">
+            <img src="concierto.jpg" alt="Imagen del evento" class="event-image">
             <div class="event-content">
-                <h3 class="event-title">{{ event.title }}</h3>
+                <h3 class="event-title">{{ event.nombre }}</h3>
                 <div class="event-info">
-                    <span class="event-type">{{ event.type }}</span>
-                    <span class="event-location">{{ event.location }}</span>
+                    <span class="event-type">{{ event.tipoEvento }}</span>
+                    <span class="event-location">{{ event.ciudad }}</span>
                 </div>
-                <div class="event-date">{{ event.date }}</div>
+                <div class="event-date">{{ event.fecha }}</div>
             </div>
         </div>
     </div>
 
-    <!-- Botones de paginación para eventos disponibles -->
+    <!-- Paginación de Eventos Disponibles -->
     <div class="pagination-container">
-        <button (click)="prevAvailablePage()" [disabled]="availablePage === 1" class="pagination-button"><i class="fa-solid fa-arrow-left"></i></button>
-        <span class="pagination-text">{{ availablePage }}</span>
-        <button (click)="nextAvailablePage()" [disabled]="availablePage === maxAvailablePage()" class="pagination-button"><i class="fa-solid fa-arrow-right"></i></button>
+        <button (click)="cambiarPaginaDisponibles(-1)" [disabled]="paginaActualDisponibles === 0" class="pagination-button">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <span class="pagination-text">{{ paginaActualDisponibles + 1 }}</span>
+        <button (click)="cambiarPaginaDisponibles(1)" [disabled]="paginaActualDisponibles === totalPaginasDisponibles - 1" class="pagination-button">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
     </div>
 
-
+    <!-- Eventos No Disponibles -->
     <div class="section-title" style="color: black;">
         <h2>Eventos No Disponibles</h2>
     </div>
     <div class="card-container">
-        <div class="event-card" *ngFor="let event of unavailableEvents | paginate: { itemsPerPage: 5, currentPage: unavailablePage }" routerLink="/evento/{{event.id}}">
-            <img [src]="event.image" alt="Imagen del evento" class="event-image">
+        <div class="event-card" *ngFor="let event of listaEventosNoDisponibles" routerLink="/evento/{{event.id}}">
+            <img src="concierto.jpg" alt="Imagen del evento" class="event-image">
             <div class="event-content">
-                <h3 class="event-title">{{ event.title }}</h3>
+                <h3 class="event-title">{{ event.nombre }}</h3>
                 <div class="event-info">
-                    <span class="event-type">{{ event.type }}</span>
-                    <span class="event-location">{{ event.location }}</span>
+                    <span class="event-type">{{ event.tipoEvento }}</span>
+                    <span class="event-location">{{ event.ciudad }}</span>
                 </div>
-                <div class="event-date">{{ event.date }}</div>
+                <div class="event-date">{{ event.fecha }}</div>
             </div>
         </div>
     </div>
-    <!-- Botones de paginación para eventos no disponibles -->
-    <div class="pagination-container">
-        <button (click)="prevUnavailablePage()" [disabled]="unavailablePage === 1" class="pagination-button"><i class="fa-solid fa-arrow-left"></i></button>
-        <span class="pagination-text">{{ unavailablePage }}</span>
-        <button (click)="nextUnavailablePage()" [disabled]="unavailablePage === maxUnavailablePage()" class="pagination-button"><i class="fa-solid fa-arrow-right"></i></button>
-    </div>
 
+    <!-- Paginación de Eventos No Disponibles -->
+    <div class="pagination-container">
+        <button (click)="cambiarPaginaNoDisponibles(-1)" [disabled]="paginaActualNoDisponibles === 0" class="pagination-button">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <span class="pagination-text">{{ paginaActualNoDisponibles + 1 }}</span>
+        <button (click)="cambiarPaginaNoDisponibles(1)" [disabled]="paginaActualNoDisponibles === totalPaginasNoDisponibles - 1" class="pagination-button">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+</div>

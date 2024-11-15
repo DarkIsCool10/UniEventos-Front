@@ -1,4 +1,19 @@
-/* Personalizar el botón de seleccionar archivos */
+/* Usamos Flexbox para alinear los campos uno junto al otro */
+.row {
+    display: flex;
+    justify-content: space-between;  /* Espaciado entre los elementos */
+  }
+  
+  .col {
+    flex: 1;  /* Hace que cada columna ocupe un 50% del espacio disponible */
+    margin-right: 10px;  /* Espaciado entre las columnas */
+  }
+  
+  .col:last-child {
+    margin-right: 0;  /* Elimina el margen de la última columna */
+  }
+  
+  /* Personalizar el botón de seleccionar archivos */
   .custom-file-label {
     display: inline-block;
     padding: 5px 15px;
@@ -19,6 +34,7 @@
   .custom-file-label:active {
     background-color: #004085;
   }
+  
    
 .crear-evento { 
     width: 100%;

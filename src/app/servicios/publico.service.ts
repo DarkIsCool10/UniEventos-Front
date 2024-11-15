@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { MensajeDTO } from '../dto/autenticacion/mensaje-dto';
 import { Observable } from 'rxjs';
 import { FiltroEventoDTO } from '../dto/evento/filtro-evento-dto';
-
+import { Evento } from '../models/Evento';
 
 @Injectable({
  providedIn: 'root'
@@ -11,7 +11,7 @@ import { FiltroEventoDTO } from '../dto/evento/filtro-evento-dto';
 export class PublicoService {
 
 
- private publicoURL = "http://localhost:8081/api/publico";
+ private publicoURL = "https://unieventos-0nly.onrender.com/api/publico";
 
 
  constructor(private http: HttpClient) { }

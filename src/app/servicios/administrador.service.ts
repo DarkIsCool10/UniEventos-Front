@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MensajeDTO } from '../dto/autenticacion/mensaje-dto';
@@ -8,6 +8,7 @@ import { ResponderPQRDTO } from '../dto/PQR/responder-pqrdto';
 import { CrearCuponDTO } from '../dto/cupon/crear-cupon-dto';
 import { EditarCuponDTO } from '../dto/cupon/editar-cupon-dto';
 import { ItemsCuponDTO } from '../dto/cupon/items-cupon-dto';
+import { Page } from '../models/Page';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ import { ItemsCuponDTO } from '../dto/cupon/items-cupon-dto';
 export class AdministradorService {
 
 
- private adminURL = "http://localhost:8081/api/admin";
+ private adminURL = "https://unieventos-0nly.onrender.com/api/admin";
 
 
  constructor(private http: HttpClient) { }
@@ -29,13 +30,8 @@ export class AdministradorService {
   }
 
 
- public actualizarEvento(editarEventoDTO: EditarEventoDTO): Observable<MensajeDTO> {
-   return this.http.put<MensajeDTO>(`${this.adminURL}/editar-evento`, editarEventoDTO);
- }
-
-
- public obtenerEvento(id: string): Observable<MensajeDTO> {
-   return this.http.get<MensajeDTO>(`${this.adminURL}/obtener-evento/${id}`);
+ public actualizarEvento(id:string, editarEventoDTO: EditarEventoDTO): Observable<MensajeDTO> {
+   return this.http.put<MensajeDTO>(`${this.adminURL}/editar-evento/${id}`, editarEventoDTO);
  }
 
 
@@ -51,6 +47,23 @@ export class AdministradorService {
 
 public obtenerLocalidad(nombre: string): Observable<MensajeDTO> {
   return this.http.get<MensajeDTO>(`${this.adminURL}/obtener-localidad/${nombre}`);
+}
+
+obtenerEventosDisponibles(page: number,size: number): Observable<Page<any>> {
+  const params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', '4');  // Asegúrate de que el tamaño de la página sea el que deseas
+
+  return this.http.get<Page<any>>(`${this.adminURL}/evento-activos`, { params });
+}
+
+
+obtenerEventosInactivos(page: number,size: number): Observable<Page<any>> {
+  const params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', '4');  // Asegúrate de que el tamaño de la página sea el que deseas
+
+  return this.http.get<Page<any>>(`${this.adminURL}/evento-inactivos`, { params });
 }
 
 
@@ -84,9 +97,23 @@ public obtenerInformacionCupon(id: string): Observable<MensajeDTO> {
   return this.http.get<MensajeDTO>(`${this.adminURL}/cupon/${id}`);
 }
 
-public obtenerTodosLosCupones(): Observable<MensajeDTO> {
-  return this.http.get<MensajeDTO>(`${this.adminURL}/cupones`);
-}
+  
+  obtenerCuponesDisponibles(page: number,size: number): Observable<Page<any>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', '4');  // Asegúrate de que el tamaño de la página sea el que deseas
+
+    return this.http.get<Page<any>>(`${this.adminURL}/cupones-disponibles`, { params });
+  }
+
+  
+  obtenerCuponesNoDisponibles(page: number,size: number): Observable<Page<any>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', '4');  // Asegúrate de que el tamaño de la página sea el que deseas
+
+    return this.http.get<Page<any>>(`${this.adminURL}/cupones-no-disponibles`, { params });
+  }
 
 
 public eliminarCupon(id: string): Observable<MensajeDTO> {

@@ -11,7 +11,7 @@ import { DetalleCarritoDTO } from '../dto/carrito/detalle-carrito-dto';
 })
 export class ClienteService {
 
-  private clienteURL = "http://localhost:8081/api/cuenta";
+  private clienteURL = "https://unieventos-0nly.onrender.com/api/cuenta";
 
 
   constructor(private http: HttpClient) { }

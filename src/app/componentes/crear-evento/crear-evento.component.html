@@ -10,8 +10,8 @@
                 <!-- Fila para Nombre y Descripción -->
                 <div class="row mb-2">
                     <div class="col">
-                      <label for="nombreEvento" class="form-label" style="color: #ffffff;">Nombre evento:</label>
-                      <input type="text" class="form-control" formControlName="nombreEvento" placeholder="Nombre evento" aria-label="Nombre evento" style="border: 1px solid #007BFF;">
+                      <label for="nombre" class="form-label" style="color: #ffffff;">Nombre evento:</label>
+                      <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre evento" aria-label="Nombre evento" style="border: 1px solid #007BFF;">
                     </div>
                     <div class="col">
                       <label for="descripcion" class="form-label" style="color: #ffffff;">Descripción:</label>
@@ -23,23 +23,27 @@
                 <div class="row mb-2">
                     <div class="col">
                         <label for="tipoEvento" class="form-label" style="color: #ffffff;">Tipo evento:</label>
-                        <select class="form-control" formControlName="tipo" placeholder="Tipo Evento" aria-label="Tipo Evento" style="border: 1px solid #ffffff;">
+                        <select class="form-control" formControlName="tipoEvento" placeholder="Tipo Evento" aria-label="Tipo Evento" style="border: 1px solid #ffffff;">
                             <option value="">Seleccione un tipo</option>
                             <option *ngFor="let item of tiposDeEvento" [value]="item">{{item}}</option>
                         </select>
                     </div>
                     <div class="col">
-                      <label for="direccionEvento" class="form-label" style="color: #ffffff;">Dirección:</label>
-                      <input type="text" class="form-control mb-1" formControlName="direccionEvento" placeholder="Dirección" aria-label="Dirección" style="border: 1px solid #ffffff;">
+                      <label for="direccion" class="form-label" style="color: #ffffff;">Dirección:</label>
+                      <input type="text" class="form-control mb-1" formControlName="direccion" placeholder="Dirección" aria-label="Dirección" style="border: 1px solid #ffffff;">
                     </div>
                 </div>
 
                 <!-- Fila para Ciudad -->
                 <div class="row mb-2">
-                    <div class="col-6">   <!-- La ciudad ocupa solo la mitad -->
-                      <label for="ciudadEvento" class="form-label" style="color: #ffffff;">Ciudad evento:</label>
-                      <input type="text" class="form-control" formControlName="ciudadEvento" placeholder="Ciudad" aria-label="Ciudad evento" style="border: 1px solid #007BFF;">
+                    <div class="col">   <!-- La ciudad ocupa solo la mitad -->
+                      <label for="ciudad" class="form-label" style="color: #ffffff;">Ciudad evento:</label>
+                      <input type="text" class="form-control" formControlName="ciudad" placeholder="Ciudad" aria-label="Ciudad evento" style="border: 1px solid #007BFF;">
                     </div>
+                      <div class="col">
+                        <label for="fecha" class="form-label" style="color: #ffffff;">Fecha de evento:</label>
+                        <input type="datetime-local" class="form-control" formControlName="fecha" style="border: 1px solid #007BFF;">
+                      </div>
                 </div>
 
                 <!-- Fila para Imagen Portada y Localidades -->
@@ -47,30 +51,38 @@
                   <div class="col" style="margin-bottom: 15px;">
                     <label for="imagenPortada" class="form-label" style="color: #ffffff;">Imagen Portada:</label>
                     <input type="file" id="imagenPortada" (change)="onFileChange($event, 'portada')" style="display: none;" />
-                    
                     <label for="imagenPortada" class="custom-file-label"><i class="fa-solid fa-images"></i> Seleccionar imagen de portada</label>
+                    <!-- Vista previa de la imagen seleccionada -->
+                    <div *ngIf="imagenPortadaPreview" class="mt-2">
+                      <img [src]="imagenPortadaPreview" alt="Vista previa de la imagen portada" class="img-fluid rounded">
+                    </div>
                   </div>
                   <div class="col" style="margin-bottom: 10px;">
-                    <label for="imagenLocalidades" class="form-label" style="color: #ffffff;">Imagen Localidades:</label>
-                    <input type="file" id="imagenLocalidades" (change)="onFileChange($event, 'localidades')" style="display: none;" />
-                    <label for="imagenLocalidades" class="custom-file-label"><i class="fa-solid fa-images"></i> Seleccionar imagen de localidades</label>
+                    <label for="imagenLocalidad" class="form-label" style="color: #ffffff;">Imagen Localidades:</label>
+                    <input type="file" id="imagenLocalidad" (change)="onFileChange($event, 'localidades')" style="display: none;" />
+                    <label for="imagenLocalidad" class="custom-file-label"><i class="fa-solid fa-images"></i> Seleccionar imagen de localidades</label>
+                    <!-- Vista previa de la imagen seleccionada -->
+                    <div *ngIf="imagenLocalidadesPreview" class="mt-2">
+                      <img [src]="imagenLocalidadesPreview" alt="Vista previa de la imagen localidades" class="img-fluid rounded">
+                    </div>
                   </div>
-                </div> 
+                </div>
+
 
                 <!-- Sección de Localidades -->
-                <div formArrayName="localidades" *ngFor="let localidad of localidades.controls; let i = index">
+                <div formArrayName="listaLocalidades" *ngFor="let localidad of localidades.controls; let i = index">
                   <div [formGroupName]="i" class="row mb-2">
                     <div class="col">
-                      <label for="nombreLocalidad" class="form-label" style="color: #ffffff;">Nombre Localidad:</label>
+                      <label for="nombre" class="form-label" style="color: #ffffff;">Nombre Localidad:</label>
                       <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre de localidad" style="border: 1px solid #007BFF;">
                     </div>
                     <div class="col">
-                      <label for="precioLocalidad" class="form-label" style="color: #ffffff;">Precio Localidad:</label>
-                      <input type="number" class="form-control" formControlName="precio" placeholder="Precio" style="border: 1px solid #007BFF;">
+                      <label for="capacidadMaxima" class="form-label" style="color: #ffffff;">Capacidad Maxima:</label>
+                      <input type="number" class="form-control" formControlName="capacidadMaxima" placeholder="Capacidad" style="border: 1px solid #007BFF;">
                     </div>
                     <div class="col">
-                      <label for="capacidadMaxima" class="form-label" style="color: #ffffff;">Capacidad Maxima:</label>
-                      <input type="number" class="form-control" formControlName="capacidad" placeholder="Capacidad" style="border: 1px solid #007BFF;">
+                      <label for="precio" class="form-label" style="color: #ffffff;">Precio Localidad:</label>
+                      <input type="number" class="form-control" formControlName="precio" placeholder="Precio" style="border: 1px solid #007BFF;">
                     </div>
                     <div class="col-auto">
                       <button type="button" class="btn btn-danger" (click)="removeLocalidad(i)">
@@ -92,7 +104,7 @@
                 <!-- Botón de Enviar -->
                 <div class="row">
                     <div class="col text-center">
-                      <button type="submit" class="btn btn-primary" style="width: 25%; background-color: #B9E8CA; color: black; border-style: none;">
+                      <button type="button" class="btn btn-primary" style="width: 25%; background-color: #B9E8CA; color: black; border-style: none;" (click)="crearEvento()">
                         <i class="fa-solid fa-user-plus"></i> Crear evento
                       </button>
                     </div>

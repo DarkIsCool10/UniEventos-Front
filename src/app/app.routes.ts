@@ -13,17 +13,21 @@ import { CrearCuponComponent } from './componentes/crear-cupon/crear-cupon.compo
 import { CuponesAdminComponent } from './componentes/cupones-admin/cupones-admin.component';
 import { LoginGuard } from './servicios/auth.service';
 import { RolesGuard } from './servicios/roles.service';
+import { InfoEventoAdminComponent } from './componentes/info-evento-admin/info-evento-admin.component';
+import { EditarEventoComponent } from './componentes/editar-evento/editar-evento.component';
 
 
 export const routes: Routes = [
-   { path: '', component: InicioComponent },
+   { path: '', component: InicioComponent},
    { path: 'login', component: RegistroLoginComponent, canActivate: [LoginGuard] },
-   { path: 'crear-evento', component: CrearEventoComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'eventos', component: EventosComponent },
    { path: 'evento/:id', component: EventoUnidadComponent },
    { path: 'carrito', component: CarritoComponent, canActivate: [RolesGuard], data: { expectedRole: ["CLIENTE"] } },
    { path: 'home-admin', component: HomeAdminComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
+   { path: 'crear-evento', component: CrearEventoComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'eventos-admin', component: EventosAdminComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] }},
+   { path: 'info-evento-admin/:id', component: InfoEventoAdminComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] }},
+   { path: 'editar-evento', component: EditarEventoComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'crear-cupon', component: CrearCuponComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'cupones-admin', component: CuponesAdminComponent, canActivate: [RolesGuard], data: { expectedRole: ["ADMINISTRADOR"] } },
    { path: 'cambio-contrasena', component: CambioContrasenaComponent },

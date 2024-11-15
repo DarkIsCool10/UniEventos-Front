@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdministradorService } from '../../servicios/administrador.service';
-import { InformacionCuponDTO } from '../../dto/cupon/informacion-cupon-dto';
 
 @Component({ 
   selector: 'app-cupones-admin',
@@ -13,72 +12,48 @@ import { InformacionCuponDTO } from '../../dto/cupon/informacion-cupon-dto';
   styleUrls: ['./cupones-admin.component.css']
 })
 export class CuponesAdminComponent implements OnInit {
-  availablePage: number = 1;   // Página de cupones disponibles
-  unavailablePage: number = 1; // Página de cupones no disponibles
-
-  availableCoupons: InformacionCuponDTO[] = []; // Cupones disponibles
-  unavailableCoupons: InformacionCuponDTO[] = []; // Cupones no disponibles
-  loading: boolean = false; // Indicador de carga
-  errorMessage: string | null = null; // Mensaje de error
-
-  constructor(private administradorService: AdministradorService) {}
-
-  ngOnInit(): void {
-    this.cargarCupones();
-  }
-
-  public cargarCupones(): void {
-    this.loading = true;
-    this.administradorService.obtenerTodosLosCupones().subscribe({
-      next: (response) => {
-        if (!response.error) {
-          const cupones: InformacionCuponDTO[] = response.respuesta;
-          this.availableCoupons = cupones.filter(cupon => new Date(cupon.fechaVencimiento) > new Date());
-          this.unavailableCoupons = cupones.filter(cupon => new Date(cupon.fechaVencimiento) <= new Date());
-        } else {
-          this.errorMessage = 'No se pudieron cargar los cupones.';
-        }
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error al cargar los cupones:', err);
-        this.errorMessage = 'Error al conectar con el servidor.';
-        this.loading = false;
+    cuponesDisponibles: any[] = [];
+    cuponesNoDisponibles: any[] = [];
+    size: number = 4; // Tamaño de página para coincidir con el backend
+    paginaActualDisponibles: number = 0;
+    paginaActualNoDisponibles: number = 0;
+    totalPaginasDisponibles: number = 0;
+    totalPaginasNoDisponibles: number = 0;
+  
+    constructor(private administradorService: AdministradorService) {}
+  
+    ngOnInit(): void {
+      this.cargarCuponesDisponibles();
+      this.cargarCuponesNoDisponibles();
+    }
+  
+    cargarCuponesDisponibles() {
+        this.administradorService.obtenerCuponesDisponibles(this.paginaActualDisponibles, this.size).subscribe(data => {
+          this.cuponesDisponibles = data.content;
+          this.totalPaginasDisponibles = data.totalPages;
+        });
       }
-    });
+      
+      cargarCuponesNoDisponibles() {
+        this.administradorService.obtenerCuponesNoDisponibles(this.paginaActualNoDisponibles, this.size).subscribe(data => {
+          this.cuponesNoDisponibles = data.content;
+          this.totalPaginasNoDisponibles = data.totalPages;
+        });
+      }
+  
+      cambiarPaginaDisponibles(incremento: number) {
+        const nuevaPagina = this.paginaActualDisponibles + incremento;
+        if (nuevaPagina >= 0 && nuevaPagina < this.totalPaginasDisponibles) {
+          this.paginaActualDisponibles = nuevaPagina;
+          this.cargarCuponesDisponibles();
+        }
+      }
+    
+      cambiarPaginaNoDisponibles(incremento: number) {
+        const nuevaPagina = this.paginaActualNoDisponibles + incremento;
+        if (nuevaPagina >= 0 && nuevaPagina < this.totalPaginasNoDisponibles) {
+          this.paginaActualNoDisponibles = nuevaPagina;
+          this.cargarCuponesNoDisponibles();
+        }
+      }
   }
-
-  // Métodos de paginación para cupones disponibles
-  prevAvailablePage(): void {
-    if (this.availablePage > 1) {
-      this.availablePage--;
-    }
-  }
-
-  nextAvailablePage(): void {
-    if (this.availablePage < this.maxAvailablePage()) {
-      this.availablePage++;
-    }
-  }
-
-  maxAvailablePage(): number {
-    return Math.ceil(this.availableCoupons.length / 5);
-  }
-
-  // Métodos de paginación para cupones no disponibles
-  prevUnavailablePage(): void {
-    if (this.unavailablePage > 1) {
-      this.unavailablePage--;
-    }
-  }
-
-  nextUnavailablePage(): void {
-    if (this.unavailablePage < this.maxUnavailablePage()) {
-      this.unavailablePage++;
-    }
-  }
-
-  maxUnavailablePage(): number {
-    return Math.ceil(this.unavailableCoupons.length / 5);
-  }
-}
