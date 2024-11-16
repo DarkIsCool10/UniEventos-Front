@@ -7,11 +7,7 @@
       <div class="card-body">
         <h5 class="card-title">{{evento.nombre}}</h5>
         <p class="card-text">{{evento.tipoEvento}}</p>
-        @if (logueado) {
-          <a href="#" class="btn btn-primary">Comprar</a>
-        }@else {
-          <a routerLink="login" class="btn btn-primary">Comprar</a>
-        }
+          <a [routerLink]="['/evento', evento.id]" class="btn btn-primary">Comprar</a>
       </div>
     </div>
   }

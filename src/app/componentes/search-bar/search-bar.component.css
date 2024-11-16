@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 
-.primera{
+.primera {
   display: flex; /* Alinea los items horizontalmente */
   justify-content: center;
   align-items: center;
@@ -22,16 +22,16 @@
   padding: 0; /* Elimina el padding por defecto */
   margin: 0; /* Elimina el margen por defecto */
   display: flex; /* Alinea los items horizontalmente */
-  justify-content: flex-end
+  justify-content: flex-end;
 }
 
 .nav-item {
   flex: 1; /* Cada elemento ocupa un espacio igual */
   text-align: center; /* Centra el texto dentro del elemento */
-  margin: 0 5%; 
+  margin: 0 5%;
 }
 
-.texto{
+.texto {
   white-space: nowrap; /* Evita que el texto se divida en varias líneas */
   display: block; /* Hace que el enlace ocupe todo el ancho del li */
   text-decoration: none; /* Quita el subrayado */
@@ -46,32 +46,32 @@
 /*_______________________________Buscador _______________________________________*/
 
 .search-container {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1em 0;
 }
 
 .search-input {
-  width: 500px;
-  box-sizing: border-box; /* Asegura que el padding no rompa el diseño */
+  width: 400px;
+  padding: 10px;
   border-radius: 25px;
-  box-shadow: 0 2px 4px rgba(0, 0.1, 0.2, 0.3);
-  background: rgba(255, 255, 255, 0.473);
-  padding: 9px 5px;
-  color: black;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   outline: none;
 }
 
-
 .search-button {
-  position: absolute;
-  right: 10px; /* Ajusta la posición del botón a la derecha */
-  top: 50%;
-  transform: translateY(-50%); /* Centra verticalmente el botón */
+  background-color: #007bff;
+  color: white;
   border: none;
-  background: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  margin-left: 10px;
   cursor: pointer;
-  font-size: 16px;
+}
+
+.search-button i {
+  margin-right: 5px;
 }
 
 .search-button:hover {

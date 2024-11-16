@@ -2,10 +2,18 @@
   <nav class="navbar">
     <div class="primera">
       <div class="search-container">
-        <input type="text" placeholder="Buscar eventos" class="search-input">
-        <button class="search-button">🔍</button>
-      </div>      
-    </div>
+        <form [formGroup]="searchForm" (ngSubmit)="buscarEventos()">
+          <input 
+            type="text" 
+            placeholder="Buscar por nombre" 
+            formControlName="nombre" 
+            class="search-input">
+          <button type="submit" class="search-button">
+            <i class="fas fa-search"></i> <!-- Icono de Font Awesome -->
+          </button>
+        </form>
+      </div>
+    </div> 
     <div class="primera">
       <ul class="nav-list">
         <li class="nav-item"><a class="texto" routerLink="/">Inicio</a></li>

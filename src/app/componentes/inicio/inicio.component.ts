@@ -4,12 +4,13 @@ import { CarouselComponent } from "../carousel/carousel.component";
 import { PublicoService } from '../../servicios/publico.service';
 import { ItemEventoDTO } from '../../dto/evento/item-evento-dto';
 import { TokenService } from '../../servicios/token.service';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [FormsModule, CarouselComponent],
+  imports: [FormsModule, CarouselComponent, RouterModule],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
 })
